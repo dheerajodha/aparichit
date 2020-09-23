@@ -211,7 +211,7 @@ def launch_attack(request):
         print(myfile)
         df = pd.read_csv('app/data/'+id + '/' + myfile, index_col = 0)
         mylist = df[['Lat','Long']].values
-
+        print(mylist[:10])
         return render(request,'app/launch.html',{'launch_pads':d,'csv':mylist})
     elif request.method == 'POST':
         id = request.user.username
@@ -232,4 +232,5 @@ def launch_attack(request):
         ## draw straight line from point (lat_i, long_i to lat_lpd, long_lpd)
         # return render(request,'app/launch.html')
         # return redirect('launch')
-        return JsonResponse({'success': 'true','time':time,'angle':angle})
+        return JsonResponse({'success': 'true','time':time,'angle':angle,'lat_i':lat_i,
+                                'long_i':long_i,'lat_lpd':lat_lpd,'long_lpd':long_lpd})
